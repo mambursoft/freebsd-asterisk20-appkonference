@@ -1,0 +1,10 @@
+App_konference is a channel-independent, high-performance conference
+application for Asterisk. It features efficient audio mixing as well as
+video selection based on VAD, DTMF or CLI.
+
+This port builds the module (app_konference.so) against an installed
+Asterisk 20 LTS (net/asterisk20). Both ULAW and ALAW are enabled for
+parity with production (ALAW trunks are common in Ukraine).
+
+Source: pjalbrecht/appkonference (GitHub), pinned commit for reproducible
+builds across hosts.

@@ -1,0 +1,42 @@
+[
+{ type: install
+  message: <<EOM
+============================================================================
+ app_konference (Asterisk 20) installed.
+
+ This port provides ONLY the conferencing module (app_konference.so).
+ It builds against the OFFICIAL net/asterisk20 port.
+
+ If your dialplan uses SIP/ channels (legacy chan_sip), note that in the
+ official net/asterisk20 port chan_sip is the "SIP" option and it is OFF
+ by default. A typical option set:
+
+     SIP     (legacy chan_sip, if you use SIP/ channels)
+     PGSQL   (PostgreSQL realtime/CDR, optional)
+     SRTP, PJSIP, CURL          (defaults, keep enabled)
+
+ WebRTC (browser softphone) needs PJSIP (res_pjsip + transport wss),
+ SRTP (DTLS-SRTP), res_http_websocket + OpenSSL (built by default).
+
+ Example (one host):
+     cd /usr/ports/net/asterisk20 && make config      # tick SIP if needed
+     make install clean
+     cd /usr/ports/net/asterisk20-appkonference && make install clean
+
+ Reproducible (no dialog), set options then build:
+     make -C /usr/ports/net/asterisk20 \
+          OPTIONS_SET="SIP PGSQL PJSIP SRTP CURL" \
+          OPTIONS_UNSET="MYSQL" config-recursive
+     make -C /usr/ports/net/asterisk20 reinstall clean
+     make -C /usr/ports/net/asterisk20-appkonference reinstall clean
+
+ After install, load the module in /usr/local/etc/asterisk/modules.conf:
+     load => app_konference.so
+ and verify from CLI:
+     asterisk -rx "module show like konference"
+
+ Both ULAW and ALAW are compiled in.
+============================================================================
+EOM
+}
+]
